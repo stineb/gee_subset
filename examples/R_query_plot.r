@@ -8,7 +8,7 @@
 library(ggplot2)
 
 # change this depending on system settings
-python_path = "/usr/local/bin/python/"
+python_path = "/usr/bin/python"
 
 # clone the gee_subset project
 # relies on git being installed
@@ -17,9 +17,9 @@ python_path = "/usr/local/bin/python/"
 #
 # basic gee_subset requirements apply
 # mainly, having a working GEE python API install
-setwd("~")
-system("git clone https://github.com/khufkens/google_earth_engine_subsets.git")
-path = "~/google_earth_engine_subsets/gee_subset/"
+# setwd("~")
+# system("git clone https://github.com/khufkens/google_earth_engine_subsets.git")
+path = "gee_subset"
 
 # set product parameters, such as
 # product name, band(s) to query, start and end date of the range
@@ -62,6 +62,5 @@ p = ggplot(df, aes(date,ndvi)) +
   ylab("NDVI") +
   geom_smooth(span = 0.3, colour = "black") +
   geom_point() +
-  ggtitle(sprintf("USGS Landsat 8 Tier 1 Raw Scenes NDVI   -   processed in %s sec.",
-                  round(proc_time,2)))
+  ggtitle( sprintf( "USGS Landsat 8 Tier 1 Raw Scenes NDVI   -   processed in %s sec.", round(proc_time,2)))
 plot(p)
