@@ -6,7 +6,10 @@ This follows steps described here: https://github.com/google/earthengine-api/iss
 
 ## Install google API Python client
 
-    sudo pip install google-api-python-client 
+    sudo pip install --upgrade google-api-python-client
+
+I had an error and first had to do this here following https://github.com/pypa/pip/issues/3165
+    sudo pip install --ignore-installed six
 
 ## Install pyCrypto
     sudo pip install pyCrypto --upgrade
@@ -17,7 +20,12 @@ This follows steps described here: https://github.com/google/earthengine-api/iss
 ## Run authentification for GEE
     earthengine authenticate
 
-This returned an error:
+## Try if it works
+This shouldn't return an error:
+    python -c "import ee; ee.Initialize()"
+
+## Further error resolving
+The authentication step returned an error on one of the machines:
     pkg_resources.DistributionNotFound: cryptography>=1.9
 
 I had to do the following:
@@ -52,26 +60,25 @@ Then again:
 Try if everything works now in Python:
     python -c "import ee; ee.Initialize()"
 
-This was missing too:
+Obviously, this was missing too:
     sudo pip install cffi
-
 
 Got it to run. Error at statement 'df.sort_values(by = 'date')':
 
-  processing: site at -71.287575 / 44.064665
-  Traceback (most recent call last):
-    File "gee_subset/gee_subset.py", line 198, in <module>
-      pad = args.pad)
-    File "gee_subset/gee_subset.py", line 149, in gee_subset
-      df.sort_values(by = 'date')
-    File "/Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/lib/python2.7/site-packages/pandas/core/generic.py", line 1947, in __getattr__
-      (type(self).__name__, name))
-  AttributeError: 'DataFrame' object has no attribute 'sort_values'
+    processing: site at -71.287575 / 44.064665
+    Traceback (most recent call last):
+      File "gee_subset/gee_subset.py", line 198, in <module>
+        pad = args.pad)
+      File "gee_subset/gee_subset.py", line 149, in gee_subset
+        df.sort_values(by = 'date')
+      File "/Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/lib/python2.7/site-packages/pandas/core/generic.py", line 1947, in __getattr__
+        (type(self).__name__, name))
+    AttributeError: 'DataFrame' object has no attribute 'sort_values'
 
-  --> apparently: "Hello sort_values is new in version 0.17.0, so check your version of pandas. In the previous versions you should use sort." (https://stackoverflow.com/questions/34499728/dataframe-object-has-no-attribute-sort-values)
+    --> apparently: "Hello sort_values is new in version 0.17.0, so check your version of pandas. In the previous versions you should use sort." (https://stackoverflow.com/questions/34499728/dataframe-object-has-no-attribute-sort-values)
 
 Therefore I had to update pandas and (as a requirement) numpy.
 
-  sudo pip install numpy --upgrade
-  sudo pip install pandas --upgrade
+    sudo pip install numpy --upgrade
+    sudo pip install pandas --upgrade
 
