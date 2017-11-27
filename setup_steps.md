@@ -1,22 +1,29 @@
 
+# Setup of google earth engine Python client
 
-SEE: https://github.com/google/earthengine-api/issues/27
+This follows steps described here: https://github.com/google/earthengine-api/issues/27
 
 
-sudo pip install google-api-python-client 
+## Install google API Python client
 
-sudo pip install pyCrypto --upgrade
+    sudo pip install google-api-python-client 
 
-sudo pip install earthengine-api
+## Install pyCrypto
+    sudo pip install pyCrypto --upgrade
 
-earthengine authenticate
+## Install Python GEE API
+    sudo pip install earthengine-api
 
-  --> returns error:
+## Run authentification for GEE
+    earthengine authenticate
 
+This returned an error:
     pkg_resources.DistributionNotFound: cryptography>=1.9
 
-sudo pip install cryptography
+I had to do the following:
+    sudo pip install cryptography
 
+This returned an error again:
   --> returns error:
 
     build/temp.macosx-10.6-x86_64-2.7/_openssl.c:483:30: fatal error: openssl/opensslv.h: No such file or directory
@@ -34,17 +41,19 @@ sudo pip install cryptography
     Command /Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/bin/python -c "import setuptools, tokenize;__file__='/Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/build/cryptography/setup.py';exec(compile(getattr(tokenize, 'open', open)(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-p9YT89-record/install-record.txt --single-version-externally-managed --compile --install-headers /Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/include/site/python2.7 failed with error code 1 in /Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/build/cryptography
     Storing debug log for failure in /Users/benjaminstocker/.pip/pip.log
 
-  Successful installation with:  
+Finally, successful installation with:  
 
-  pip install cryptography --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
+    pip install cryptography --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include"
 
-  Then again:
+Then again:
 
-  earthengine authenticate
+    earthengine authenticate
 
-  python -c "import ee; ee.Initialize()"
+Try if everything works now in Python:
+    python -c "import ee; ee.Initialize()"
 
-sudo pip install cffi
+This was missing too:
+    sudo pip install cffi
 
 
 Got it to run. Error at statement 'df.sort_values(by = 'date')':
