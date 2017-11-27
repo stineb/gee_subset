@@ -9,7 +9,9 @@ This follows steps described here: https://github.com/google/earthengine-api/iss
     sudo pip install --upgrade google-api-python-client
 
 I had an error and first had to do this here following https://github.com/pypa/pip/issues/3165
+```sh
     sudo pip install --ignore-installed six
+```
 
 ## Install pyCrypto
     sudo pip install pyCrypto --upgrade
@@ -22,14 +24,18 @@ I had an error and first had to do this here following https://github.com/pypa/p
 
 ## Try if it works
 This shouldn't return an error:
+```sh
     python -c "import ee; ee.Initialize()"
+```
 
 ## Further error resolving
 The authentication step returned an error on one of the machines:
     pkg_resources.DistributionNotFound: cryptography>=1.9
 
 I had to do the following:
+```sh
     sudo pip install cryptography
+```
 
 This returned an error again:
   --> returns error:
