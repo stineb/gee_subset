@@ -8,7 +8,8 @@
 library(ggplot2)
 
 # change this depending on system settings
-python_path = "/usr/bin/python"
+# python_path = "/usr/bin/python"
+python_path = "/Users/benjaminstocker/Library/Enthought/Canopy_64bit/User/bin/python"
 
 # clone the gee_subset project
 # relies on git being installed
